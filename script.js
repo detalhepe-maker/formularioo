@@ -2,21 +2,22 @@
 
 // Configurações iniciais
 const PRODUTOS_INICIAIS = [
-    { id: 1, nome: 'Kit Escolar', preco: 154.00 },
-    { id: 2, nome: 'Kit Escolar sem Tag', preco: 132.00 },
+    { id: 1, nome: 'Kit Escolar', preco: 155.00 },
+    { id: 2, nome: 'Kit Escolar sem Tag', preco: 130.00 },
     { id: 3, nome: 'Kit Petit', preco: 110.00 },
-    { id: 4, nome: 'Kit Petit sem Tag', preco: 99.00 },
-    { id: 5, nome: 'Kit Baby Plus', preco: 121.00 },
-    { id: 6, nome: 'Kit Baby', preco: 77.00 },
-    { id: 7, nome: 'Casadinha Termocolantes', preco: 88.00 },
-    { id: 8, nome: 'Kits Casadinha', preco: 66.00 },
+    { id: 4, nome: 'Kit Petit sem Tag', preco: 100.00 },
+    { id: 5, nome: 'Kit Baby Plus', preco: 120.00 },
+    { id: 6, nome: 'Kit Baby', preco: 75.00 },
+    { id: 7, nome: 'Casadinha Termocolantes', preco: 85.00 },
+    { id: 8, nome: 'Kits Casadinha', preco: 65.00 },
     { id: 9, nome: 'Tag Mochila/Lancheira', preco: 22.00 },
-    { id: 10, nome: 'Tag Estojo', preco: 16.50 },
-    { id: 11, nome: 'Garrafa Térmica 350ml', preco: 80.00 },
-    { id: 12, nome: 'Ecobag Meu Material', preco: 55.00 },
-    { id: 13, nome: 'Cartela Kit Higiene Padrão', preco: 22.00 },
-    { id: 14, nome: 'Cartela Kit Higiene Personalizada', preco: 33.00 },
-    { id: 15, nome: 'Cartela Avulsa Etiquetas', preco: 27.50 },
+    { id: 10, nome: 'Tag Estojo', preco: 16.00 },
+    { id: 11, nome: 'Garrafa Térmica 350ml', preco: 85.00 },
+    { id: 12, nome: 'Ecobag Meu Material - 45x40cm', preco: 55.00 },
+    { id: 13, nome: 'Cartela Kit Higiene Padrão', preco: 20.00 },
+    { id: 14, nome: 'Cartela Kit Higiene Personalizada', preco: 30.00 },
+    { id: 15, nome: 'Cartela Avulsa Etiquetas', preco: 27.00 },
+    { id: 16, nome: 'Kit Escolar Premium', preco: 190.00 }
 ];
 
 const OPCOES_ENTREGA = [
@@ -24,7 +25,7 @@ const OPCOES_ENTREGA = [
     { id: 'motoboy_recife', label: 'Motoboy Recife', valor: 14.00 },
     { id: 'motoboy_olinda', label: 'Motoboy Olinda', valor: 22.00 },
     { id: 'motoboy_jaboatao', label: 'Motoboy Jaboatão', valor: 27.00 },
-    { id: 'correios', label: 'Correios', valor: 0 },
+    { id: 'correios', label: 'Correios - valor para etiquetas', valor: 16.00 },
 ];
 
 const TAXA_NOVA_ARTE = 20.00;
