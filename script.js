@@ -2,22 +2,25 @@
 
 // Configurações iniciais
 const PRODUTOS_INICIAIS = [
-    { id: 1, nome: 'Kit Escolar', preco: 155.00 },
-    { id: 2, nome: 'Kit Escolar sem Tag', preco: 130.00 },
-    { id: 3, nome: 'Kit Petit', preco: 110.00 },
-    { id: 4, nome: 'Kit Petit sem Tag', preco: 100.00 },
-    { id: 5, nome: 'Kit Baby Plus', preco: 120.00 },
-    { id: 6, nome: 'Kit Baby', preco: 75.00 },
-    { id: 7, nome: 'Casadinha Termocolantes', preco: 85.00 },
-    { id: 8, nome: 'Kits Casadinha', preco: 65.00 },
-    { id: 9, nome: 'Tag Mochila/Lancheira', preco: 22.00 },
-    { id: 10, nome: 'Tag Estojo', preco: 16.00 },
-    { id: 11, nome: 'Garrafa Térmica 350ml', preco: 85.00 },
-    { id: 12, nome: 'Ecobag Meu Material - 45x40cm', preco: 55.00 },
-    { id: 13, nome: 'Cartela Kit Higiene Padrão', preco: 20.00 },
-    { id: 14, nome: 'Cartela Kit Higiene Personalizada', preco: 30.00 },
-    { id: 15, nome: 'Cartela Avulsa Etiquetas', preco: 27.00 },
-    { id: 16, nome: 'Kit Escolar Premium', preco: 190.00 }
+    { id: 1, nome: 'Kit Escolar Premium', preco: 190.00 }
+    { id: 2, nome: 'Kit Escolar', preco: 155.00 },
+    { id: 3, nome: 'Kit Escolar sem Tag', preco: 130.00 },
+    { id: 4, nome: 'Kit Petit', preco: 110.00 },
+    { id: 5, nome: 'Kit Petit sem Tag', preco: 100.00 },
+    { id: 6, nome: 'Kit Baby Plus', preco: 120.00 },
+    { id: 7, nome: 'Kit Baby', preco: 75.00 },
+    { id: 8, nome: 'Casadinha Termocolantes', preco: 85.00 },
+    { id: 9, nome: 'Cartela 20 Termocolantes', preco: 45.00 },
+    { id: 10, nome: 'Cartela 45 Minis Termocolantes', preco: 45.00 },
+    { id: 11, nome: 'Kit Casadinha - 2 cartelas', preco: 65.00 },
+    { id: 12, nome: 'Tag Mochila/Lancheira', preco: 22.00 },
+    { id: 13, nome: 'Tag Estojo', preco: 16.00 },
+    { id: 14, nome: 'Garrafa Térmica 350ml', preco: 85.00 },
+    { id: 15, nome: 'Ecobag Meu Material - 45x40cm', preco: 55.00 },
+    { id: 16, nome: 'Cartela Kit Higiene Padrão transparente', preco: 20.00 },
+    { id: 17, nome: 'Cartela Kit Higiene Personalizada', preco: 30.00 },
+    { id: 18, nome: 'Cartela extra Avulsa Etiquetas', preco: 27.00 },
+    
 ];
 
 const OPCOES_ENTREGA = [
