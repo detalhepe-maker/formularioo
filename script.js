@@ -2,7 +2,7 @@
 
 // Configurações iniciais
 const PRODUTOS_INICIAIS = [
-    { id: 1, nome: 'Kit Escolar Premium', preco: 190.00 }
+    { id: 1, nome: 'Kit Escolar Premium', preco: 190.00 },
     { id: 2, nome: 'Kit Escolar', preco: 155.00 },
     { id: 3, nome: 'Kit Escolar sem Tag', preco: 130.00 },
     { id: 4, nome: 'Kit Petit', preco: 110.00 },
