@@ -28,7 +28,7 @@ const OPCOES_ENTREGA = [
     { id: 'motoboy_recife', label: 'Motoboy Recife', valor: 14.00 },
     { id: 'motoboy_olinda', label: 'Motoboy Olinda', valor: 22.00 },
     { id: 'motoboy_jaboatao', label: 'Motoboy Jaboatão', valor: 27.00 },
-    { id: 'correios', label: 'Correios', valor: 0 },
+    { id: 'correios', label: 'Correios - Etiquetas', valor: 16.00 },
 ];
 
 const TAXA_NOVA_ARTE = 20.00;
