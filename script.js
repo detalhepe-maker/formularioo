@@ -28,7 +28,7 @@ const OPCOES_ENTREGA = [
     { id: 'motoboy_recife', label: 'Motoboy Recife', valor: 14.00 },
     { id: 'motoboy_olinda', label: 'Motoboy Olinda', valor: 22.00 },
     { id: 'motoboy_jaboatao', label: 'Motoboy Jaboatão', valor: 27.00 },
-    { id: 'correios', label: 'Correios - valor para etiquetas', valor: 16.00 },
+    { id: 'correios', label: 'Correios', valor: 0 },
 ];
 
 const TAXA_NOVA_ARTE = 20.00;
@@ -218,21 +218,8 @@ function renderizarUploadArea(criancaId) {
     if (crianca.tipoTema === 'catalogo') {
         container.innerHTML = `
             <div class="upload-area catalogo">
-                <label class="upload-label">📸 Envie o print do tema escolhido *</label>
-                <p class="upload-desc">Tire um print da página do catálogo com o tema escolhido</p>
-                <div id="uploadBox-${criancaId}">
-                    ${crianca.imagemBase64 ? 
-                        `<div class="image-preview">
-                            <img src="${crianca.imagemBase64}" alt="Preview">
-                            <button class="btn-remove-image" onclick="removerImagem(${criancaId})">✖</button>
-                        </div>` :
-                        `<label class="upload-box catalogo">
-                            <input type="file" accept="image/*" onchange="handleImageUpload(${criancaId}, event)">
-                            <div class="upload-icon">📤</div>
-                            <div class="upload-text">Clique para fazer upload</div>
-                        </label>`
-                    }
-                </div>
+                <label class="upload-label">📸 Print do tema escolhido</label>
+                <p class="upload-desc">⚠️ Você precisará enviar o print do tema escolhido diretamente no WhatsApp após o envio do pedido</p>
             </div>
         `;
     } else if (crianca.tipoTema === 'nova_arte') {
@@ -242,22 +229,7 @@ function renderizarUploadArea(criancaId) {
                     <label class="upload-label">💡 Descrição ou referência (opcional)</label>
                     <textarea data-crianca="${criancaId}" data-campo="referenciaNovaArte" placeholder="Descreva como gostaria da arte ou conte mais sobre o tema...">${crianca.referenciaNovaArte}</textarea>
                 </div>
-                
-                <label class="upload-label">📸 Imagem de referência (opcional)</label>
-                <p class="upload-desc">Você pode enviar uma imagem para nos ajudar a criar a arte perfeita</p>
-                <div id="uploadBox-${criancaId}">
-                    ${crianca.imagemBase64 ? 
-                        `<div class="image-preview">
-                            <img src="${crianca.imagemBase64}" alt="Preview">
-                            <button class="btn-remove-image" onclick="removerImagem(${criancaId})">✖</button>
-                        </div>` :
-                        `<label class="upload-box nova-arte">
-                            <input type="file" accept="image/*" onchange="handleImageUpload(${criancaId}, event)">
-                            <div class="upload-icon">🖼️</div>
-                            <div class="upload-text">Clique para fazer upload (opcional)</div>
-                        </label>`
-                    }
-                </div>
+                <p class="upload-desc">⚠️ Se quiser enviar uma imagem de referência, envie diretamente no WhatsApp após o pedido</p>
             </div>
         `;
         
@@ -271,36 +243,11 @@ function renderizarUploadArea(criancaId) {
     }
 }
 
-function handleImageUpload(criancaId, event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const crianca = criancas.find(c => c.id === criancaId);
-        if (crianca) {
-            crianca.imagemBase64 = e.target.result;
-            renderizarUploadArea(criancaId);
-            atualizarAvisoImagens();
-        }
-    };
-    reader.readAsDataURL(file);
-}
-
-function removerImagem(criancaId) {
-    const crianca = criancas.find(c => c.id === criancaId);
-    if (crianca) {
-        crianca.imagemBase64 = null;
-        renderizarUploadArea(criancaId);
-        atualizarAvisoImagens();
-    }
-}
-
 function atualizarAvisoImagens() {
     const aviso = document.getElementById('avisoImagens');
-    const temImagens = criancas.some(c => c.imagemBase64);
+    const temTemaCatalogo = criancas.some(c => c.tipoTema === 'catalogo');
     
-    if (temImagens) {
+    if (temTemaCatalogo) {
         aviso.classList.remove('hidden');
     } else {
         aviso.classList.add('hidden');
@@ -458,11 +405,6 @@ function enviarWhatsApp() {
             return;
         }
         
-        if (crianca.tipoTema === 'catalogo' && !crianca.imagemBase64) {
-            alert('Por favor, envie o print do tema do catálogo!');
-            return;
-        }
-        
         if (crianca.produtos.some(p => !p.produtoId)) {
             alert('Por favor, selecione todos os produtos!');
             return;
@@ -496,13 +438,25 @@ function enviarWhatsApp() {
     // Abrir WhatsApp
     window.open(`https://wa.me/5581996156670?text=${mensagemEncoded}`, '_blank');
     
-    // Avisar sobre imagens
-    const temImagens = criancas.some(c => c.imagemBase64);
-    if (temImagens) {
-        setTimeout(() => {
-            alert('📱 Importante: Após enviar a mensagem, por favor envie as imagens dos temas/referências que você anexou no formulário diretamente no chat do WhatsApp!');
-        }, 1000);
-    }
+    // Avisar sobre envio de imagens
+    const temTemaCatalogo = criancas.some(c => c.tipoTema === 'catalogo');
+    const temNovaArte = criancas.some(c => c.tipoTema === 'nova_arte');
+    
+    setTimeout(() => {
+        let mensagemAviso = '📱 IMPORTANTE:\n\n';
+        
+        if (temTemaCatalogo) {
+            mensagemAviso += '• Envie o PRINT do tema escolhido do catálogo no WhatsApp\n\n';
+        }
+        
+        if (temNovaArte) {
+            mensagemAviso += '• Se tiver imagem de referência para a nova arte, envie também no WhatsApp\n\n';
+        }
+        
+        mensagemAviso += 'Não esqueça de enviar as imagens logo após a mensagem do pedido!';
+        
+        alert(mensagemAviso);
+    }, 1000);
 }
 
 function gerarMensagemWhatsApp() {
@@ -514,7 +468,8 @@ function gerarMensagemWhatsApp() {
     mensagem += `*Telefone:* ${telefone}\n\n`;
     mensagem += `*═══════════════*\n`;
     
-    let temImagens = false;
+    let temTemaCatalogo = false;
+    let temNovaArteComRef = false;
     
     criancas.forEach((crianca, index) => {
         mensagem += `\n*CRIANÇA ${index + 1}:*\n`;
@@ -526,18 +481,13 @@ function gerarMensagemWhatsApp() {
         
         if (crianca.tipoTema === 'catalogo') {
             mensagem += `📋 Tipo: Tema do Catálogo\n`;
-            if (crianca.imagemBase64) {
-                mensagem += `📎 *Imagem anexada no print*\n`;
-                temImagens = true;
-            }
+            mensagem += `📎 *Vou enviar o print do tema*\n`;
+            temTemaCatalogo = true;
         } else if (crianca.tipoTema === 'nova_arte') {
             mensagem += `✨ Tipo: Nova Arte (+R$ ${TAXA_NOVA_ARTE.toFixed(2)})\n`;
             if (crianca.referenciaNovaArte) {
                 mensagem += `💡 Referência: ${crianca.referenciaNovaArte}\n`;
-            }
-            if (crianca.imagemBase64) {
-                mensagem += `📎 *Imagem de referência anexada no print*\n`;
-                temImagens = true;
+                temNovaArteComRef = true;
             }
         }
         
@@ -587,8 +537,8 @@ function gerarMensagemWhatsApp() {
     const total = document.getElementById('totalValue').textContent;
     mensagem += `\n*💰 TOTAL: ${total}*`;
     
-    if (temImagens) {
-        mensagem += `\n\n⚠️ *ATENÇÃO: Vou enviar as imagens dos temas/referências logo em seguida!*`;
+    if (temTemaCatalogo || temNovaArteComRef) {
+        mensagem += `\n\n⚠️ *Vou enviar as imagens logo em seguida!*`;
     }
     
     return mensagem;
