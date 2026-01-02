@@ -383,7 +383,7 @@ function calcularTotal() {
 
 // ============== ENVIAR WHATSAPP ==============
 
-function enviarWhatsApp() {
+function enviarWhatsApp2() {
     // Validações básicas
     const nomeResponsavel = document.getElementById('nomeResponsavel').value.trim();
     const telefone = document.getElementById('telefone').value.trim();
@@ -458,6 +458,64 @@ function enviarWhatsApp() {
         alert(mensagemAviso);
     }, 1000);
 }
+
+function enviarWhatsApp(event) {
+    // 1. Validações básicas
+    const nomeResponsavel = document.getElementById('nomeResponsavel').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    
+    if (!nomeResponsavel || !telefone) {
+        alert('Por favor, preencha o nome do responsável e telefone!');
+        event.preventDefault(); // Impede o link de abrir
+        return;
+    }
+    
+    if (criancas.length === 0) {
+        alert('Adicione pelo menos uma criança!');
+        event.preventDefault();
+        return;
+    }
+    
+    // Validar dados das crianças
+    for (let crianca of criancas) {
+        if (!crianca.nomeCrianca || !crianca.tema || !crianca.tipoTema) {
+            alert('Por favor, preencha todos os campos obrigatórios das crianças!');
+            event.preventDefault();
+            return;
+        }
+        
+        if (crianca.produtos.some(p => !p.produtoId)) {
+            alert('Por favor, selecione todos os produtos!');
+            event.preventDefault();
+            return;
+        }
+    }
+    
+    const entregaRadio = document.querySelector('input[name="entrega"]:checked');
+    if (!entregaRadio) {
+        alert('Por favor, selecione uma opção de entrega!');
+        event.preventDefault();
+        return;
+    }
+
+    // 2. Se passou nas validações, gera a mensagem
+    const mensagem = gerarMensagemWhatsApp();
+    const mensagemEncoded = encodeURIComponent(mensagem);
+    
+    // 3. ATUALIZA O LINK DO BOTÃO (A mágica acontece aqui)
+    const linkElement = document.getElementById('enviarWhatsApp');
+    linkElement.href = `https://wa.me/5581996156670?text=${mensagemEncoded}`;
+    
+    // 4. Avisar sobre envio de imagens (Opcional)
+    const temTemaCatalogo = criancas.some(c => c.tipoTema === 'catalogo');
+    const temNovaArte = criancas.some(c => c.tipoTema === 'nova_arte');
+    
+    if (temTemaCatalogo || temNovaArte) {
+        console.log("Preparando envio de imagens...");
+        // Opcional: remover o alert que trava a tela ou deixar para depois
+    }
+}
+
 
 function gerarMensagemWhatsApp() {
     const nomeResponsavel = document.getElementById('nomeResponsavel').value;
